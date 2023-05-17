@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography;
+﻿using System.ComponentModel;
 
 Console.WriteLine("Vítejte v aplikaci Ťukťuk");
 #region Menu
@@ -60,27 +60,64 @@ while(true)
 switch (vyberINT)
 {
     case 0:
-        string txtSoubourSlova = File.ReadAllText("txt/slovicka.txt");
-        string[] slova = txtSoubourSlova.Split(";");
-        vyberINT = rng.Next(0, slova.Length - 1);
-        string[] vybraneSlovo = slova[vyberINT].Split(":");
+        string[] poleSlova = { "O:H:Ř:E:V", "A:U:T:O:M:O:B:I:L", "K:O:L:O" };
+        vyberINT = rng.Next(0, poleSlova.Length - 1);
+        string[] vybraneSlovo = poleSlova[vyberINT].Split(":");
+        string[] uhadnutaPismena = new string[vybraneSlovo.Length];
+        int i = 0;
+        foreach(string pismeno in uhadnutaPismena)
+        {
+            uhadnutaPismena[i] = "_";
+            i++;
+        }
 
         while(true)
         {
-            string hadani = Console.ReadLine().ToUpper();
-            int i = 1;
+            Reset:;
+            foreach (string pismeno in uhadnutaPismena)
+            {
+                Console.Write(pismeno);
+            }
+            Console.WriteLine("");
+                                
+            string hadanePismeno = Console.ReadLine().ToUpper();
+            i = 1;
+            bool veSlove = false;
+
             foreach(string pismeno in vybraneSlovo)
             {
-                if(hadani == pismeno)
+                if(hadanePismeno == pismeno)
                 {
-                    Console.WriteLine($"{hadani} je na {i}. pozici");
+                    uhadnutaPismena[i - 1] = hadanePismeno;
+                    veSlove = true;
                 }
                 i++;
             }
-            //kontrolovani a "odemykani" individualnich pismen (pis1, pis2...)
-            //kdyz jsou vsechny "odemceny" tak ukoncit
-            if()
-            { }
+
+            if(veSlove == false)
+            {
+                Console.WriteLine("Hádané písmeno není ve slově");
+            }
+
+            Thread.Sleep(800);
+            Console.Clear();
+
+            i = 0;
+            foreach(string pismeno in vybraneSlovo)
+            {
+                if (vybraneSlovo[i] == uhadnutaPismena[i])
+                {
+                    
+                }
+                else
+                {
+                    goto Reset;
+                }
+                i++;
+            }
+            Console.WriteLine("Well done, uhádl jsi slovo!");
+            goto Win;
         }
+        Win:
         break;
 }
