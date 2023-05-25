@@ -2,7 +2,7 @@
 while (true)
 {
     #region Menu
-    string[] PoleHry = { "Šibenice" };
+    string[] PoleHry = { "Šibenice", "Kámen, nůžky, papír" };
     Random rng = new Random();
     string vyberSTR = "";
     int vyberINT = 0;
@@ -85,19 +85,197 @@ while (true)
                 Console.WriteLine("");
 
                 string hadanePismeno = Console.ReadLine().ToUpper();
-                i = 1;
+                i = 0;
                 bool veSlove = false;
 
                 foreach (string pismeno in vybraneSlovo)
                 {
                     if (hadanePismeno == pismeno)
                     {
-                        uhadnutaPismena[i - 1] = hadanePismeno;
+                        uhadnutaPismena[i] = hadanePismeno;
                         veSlove = true;
                     }
                     i++;
                 }
 
+                i = 0;
+                switch (hadanePismeno)
+                {
+                    case "A":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Á" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Á";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "C":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Č" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Č";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "D":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ď" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ď";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "E":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("É" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "É";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ě" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ě";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "I":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Í" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Í";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "N":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ň" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ň";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "O":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ó" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ó";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "R":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ř" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ř";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+                        
+                    case "S":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Š" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Š";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                     case "T":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ť" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ť";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "U":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ú" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ú";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ů" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ů";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "Y":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ý" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ý";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+
+                    case "Z":
+                        foreach (string pismeno in vybraneSlovo)
+                        {
+                            if ("Ž" == pismeno)
+                            {
+                                uhadnutaPismena[i] = "Ž";
+                                veSlove = true;
+                            }
+                            i++;
+                        }
+                        break;
+                }
+                    
                 if (veSlove == false)
                 {
                     Console.WriteLine("Hádané písmeno není ve slově");
@@ -124,9 +302,89 @@ while (true)
                 Console.Clear();
                 goto Win;
             }
-              Win:
+        Win:
             break;
         #endregion
+
+        #region KNP
+        case 1:
+            int koloWinsHrac = 0;
+            int koloWinsBot = 0;
+            while (true)
+            {
+                int vyberKNPHrac = 0;
+                int vyberKNPBot = 0;
+                Console.ForegroundColor = ConsoleColor.White;
+
+                while (true)
+                {
+                    Console.WriteLine("Vyber si: Kámen [K], Nůžky [N] nebo Papír [P]");
+                    vyberSTR = Console.ReadLine().ToUpper();
+                    if (vyberSTR == "K")
+                    {
+                        vyberKNPHrac = 0;
+                        break;
+                    }
+                    else if (vyberSTR == "N")
+                    {
+                        vyberKNPHrac = 1;
+                        break;
+                    }
+                    else if (vyberSTR == "P")
+                    {
+                        vyberKNPHrac = 2;
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Neplatný výběr");
+                    }
+                }
+
+                vyberKNPBot = rng.Next(0, 3);
+
+                if (vyberKNPHrac == 0 && vyberKNPBot == 1 || vyberKNPHrac == 1 && vyberKNPBot == 2 || vyberKNPHrac == 2 && vyberKNPBot == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Kolo vyhrál hráč");
+                    koloWinsHrac++;
+                }
+                else if (vyberKNPHrac == vyberKNPBot)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Remíza");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Kolo vyhrál bot");
+                    koloWinsBot++;
+                }
+
+                Thread.Sleep(800);
+                Console.Clear();
+
+                if (koloWinsHrac == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Gratuluji, vyhrál jsi hru!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    goto KNPEnd;
+                }
+                else if (koloWinsBot == 3)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Je to tragédie, prohrál jsi hru!");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    goto KNPEnd;
+                }
+            }
+            KNPEnd:
+            Thread.Sleep(1250);
+            Console.Clear();
+            break;
+        #endregion
+
     }
 }
 END:
