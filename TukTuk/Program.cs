@@ -343,6 +343,8 @@ while (true)
                     else
                     {
                         Console.WriteLine("Neplatný výběr");
+                        Thread.Sleep(600);
+                        Console.Clear();
                     }
                 }
 
