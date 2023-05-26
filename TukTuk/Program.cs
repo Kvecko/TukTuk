@@ -147,6 +147,7 @@ while (true)
                             }
                             i++;
                         }
+                        i = 0;
                         foreach (string pismeno in vybraneSlovo)
                         {
                             if ("Ě" == pismeno)
@@ -240,6 +241,7 @@ while (true)
                             }
                             i++;
                         }
+                        i = 0;
                         foreach (string pismeno in vybraneSlovo)
                         {
                             if ("Ů" == pismeno)
@@ -323,16 +325,19 @@ while (true)
                     if (vyberSTR == "K")
                     {
                         vyberKNPHrac = 0;
+                        Console.WriteLine("Vybral sis kámen");
                         break;
                     }
                     else if (vyberSTR == "N")
                     {
                         vyberKNPHrac = 1;
+                        Console.WriteLine("Vybral sis nůžky");
                         break;
                     }
                     else if (vyberSTR == "P")
                     {
                         vyberKNPHrac = 2;
+                        Console.WriteLine("Vybral sis papír");
                         break;
                     }
                     else
@@ -342,6 +347,18 @@ while (true)
                 }
 
                 vyberKNPBot = rng.Next(0, 3);
+                if (vyberKNPBot == 0)
+                {
+                    Console.WriteLine("Bot si vybral kámen");
+                }
+                else if (vyberKNPBot == 1)
+                {
+                    Console.WriteLine("Bot si vybral nůžky");
+                }
+                else if (vyberKNPBot == 2)
+                {
+                    Console.WriteLine("Bot si vybral papír");
+                }
 
                 if (vyberKNPHrac == 0 && vyberKNPBot == 1 || vyberKNPHrac == 1 && vyberKNPBot == 2 || vyberKNPHrac == 2 && vyberKNPBot == 0)
                 {
@@ -361,25 +378,24 @@ while (true)
                     koloWinsBot++;
                 }
 
-                Thread.Sleep(800);
+                Thread.Sleep(1000);
                 Console.Clear();
 
                 if (koloWinsHrac == 3)
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Gratuluji, vyhrál jsi hru!");
-                    Console.ForegroundColor = ConsoleColor.White;
                     goto KNPEnd;
                 }
                 else if (koloWinsBot == 3)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Je to tragédie, prohrál jsi hru!");
-                    Console.ForegroundColor = ConsoleColor.White;
                     goto KNPEnd;
                 }
             }
             KNPEnd:
+            Console.ForegroundColor = ConsoleColor.White;
             Thread.Sleep(1250);
             Console.Clear();
             break;
