@@ -2,7 +2,7 @@
 while (true)
 {
     #region Menu
-    string[] PoleHry = { "Šibenice", "Kámen, nůžky, papír" };
+    string[] PoleHry = { "Šibenice", "Kámen, nůžky, papír", "Pexeso" };
     Random rng = new Random();
     string vyberSTR = "";
     int vyberINT = 0;
@@ -403,6 +403,119 @@ while (true)
             break;
         #endregion
 
+        #region Pexeso
+        case 2:
+            string[] pexesoSlova = { "jablko", "jablko", "hruška", "hruška", "meloun", "meloun", "granátové jablko", "granátové jablko", "avokádo", "avokádo", "banán", "banán", "durian", "durian", "fík", "fík", "citrón", "citrón", "datle", "datle" };
+            string[] pexesoRandom = new string[pexesoSlova.Length];
+
+            for (i = 0; i < pexesoRandom.Length; i++)
+            {
+                pexesoRandom[i] = ".";
+            }
+
+            for (i = 0; i < pexesoSlova.Length; i++)
+            {
+                while (true)
+                {
+                    int cislo = rng.Next(0, pexesoSlova.Length);
+                    string slovo = pexesoSlova[cislo];
+                    if (pexesoSlova[cislo] != ".")
+                    {
+                        if (slovo != ".")
+                        {
+                            pexesoRandom[i] = slovo;
+                            pexesoSlova[cislo] = ".";
+                            break;
+                        }
+                    }
+                }
+            }
+
+            while (true)
+            {
+                PexesoStart:
+
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("Neuhodnuté karty: ");
+                for (i = 0; i < pexesoRandom.Length; i++)
+                {
+                    if (pexesoRandom[i] != ".")
+                    {
+                        Console.Write($"{i + 1} ");
+                    }
+                }
+
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Uhodnuté karty: ");
+                for (i = 0; i < pexesoRandom.Length; i++)
+                {
+                    if (pexesoRandom[i] == ".")
+                    {
+                        Console.Write($"{i + 1} ");
+                    }
+                }
+
+                Console.ResetColor();
+                Console.WriteLine("");
+
+                VyberKarta1:
+                Console.WriteLine("Zadej číslo první karty");
+                int odpoved1 = Convert.ToInt32(Console.ReadLine());
+                if (odpoved1 <= 0 || odpoved1 > pexesoRandom.Length)
+                {
+                    Console.WriteLine("Neplatný výběr");
+                    goto VyberKarta1;
+                }
+                else if (pexesoRandom[odpoved1 - 1] == ".")
+                {
+                    Console.WriteLine("Karta byla již uhodnota");
+                    goto VyberKarta1;
+                }
+
+                VyberKarta2:
+                Console.WriteLine("Zadej číslo druhé karty");
+                int odpoved2 = Convert.ToInt32(Console.ReadLine());
+                if (odpoved2 <= 0 || odpoved2 > pexesoRandom.Length)
+                {
+                    Console.WriteLine("Neplatný výběr");
+                    goto VyberKarta2;
+                }
+                else if (pexesoRandom[odpoved2 - 1] == ".")
+                {
+                    Console.WriteLine("Karta byla již uhodnota");
+                    goto VyberKarta2;
+                }
+
+                Console.WriteLine($"První karta - {pexesoRandom[odpoved1 - 1]} \nDruhá karta - {pexesoRandom[odpoved2 - 1]}");
+                if (pexesoRandom[odpoved1 - 1] == pexesoRandom[odpoved2 - 1])
+                {
+                    Console.WriteLine("Dvojice nalezena");
+                    pexesoRandom[odpoved1 - 1] = ".";
+                    pexesoRandom[odpoved2 - 1] = ".";
+                }
+                else
+                {
+                    Console.WriteLine("Neshodná dvojice");
+                }
+
+                Thread.Sleep(1000);
+                Console.Clear();
+
+                foreach (string slovo in pexesoRandom)
+                {
+                    if (slovo != ".")
+                    {
+                        goto PexesoStart;
+                    }
+                }
+                break;
+            }
+            Console.WriteLine("Vyhrál jsi!");
+            Thread.Sleep(600);
+            Console.Clear();
+            break;
+            #endregion
     }
 }
 END:
