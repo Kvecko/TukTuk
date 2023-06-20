@@ -1,6 +1,13 @@
-﻿Console.WriteLine("Vítejte v aplikaci Ťukťuk");
+﻿using Spectre.Console;
+
+Console.WriteLine("Vítejte v aplikaci Ťukťuk");
+Thread.Sleep(1000);
+Console.Clear();
+
 while (true)
 {
+    Console.ResetColor();
+
     #region Menu
     string[] PoleHry = { "Šibenice", "Kámen, nůžky, papír", "Pexeso" };
     Random rng = new Random();
@@ -9,37 +16,35 @@ while (true)
 
     while (true)
     {
-        Console.WriteLine("Vybrat si hru [S], zahrát si náhodnou [R] nebo ukončit aplikaci [E]");
-        vyberSTR = Console.ReadLine().ToUpper();
-        if (vyberSTR == "S")
+        vyberSTR = AnsiConsole.Prompt(
+        new SelectionPrompt<string>()
+        .AddChoices(new[] {
+            "Vybrat si hru", "Vybrat náhodnou hru", "Ukončit aplikaci"
+        }));
+
+        if (vyberSTR == "Vybrat si hru")
         {
             while (true)
             {
-                int i = 1;
-                Console.WriteLine("Napište číslo hry");
-                foreach (string hra in PoleHry)
+                vyberSTR = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .AddChoices(new[] {
+                "Šibenice", "Kámen, nůžky, papír", "Pexeso"
+                }));
+                //Jsem psát všechny hry
+
+                for (vyberINT = 0; vyberINT < PoleHry.Length; vyberINT++)
                 {
-                    Console.WriteLine($"{i} - {hra}");
-                    i++;
+                    if (vyberSTR == PoleHry[vyberINT])
+                    {
+                        break;
+                    }
                 }
-                vyberINT = Convert.ToInt32(Console.ReadLine()) - 1;
-                if (vyberINT < 0 || vyberINT > PoleHry.Length - 1)
-                {
-                    Console.WriteLine("Neplatný výběr");
-                    Thread.Sleep(600);
-                    Console.Clear();
-                }
-                else
-                {
-                    Console.WriteLine($"Zvolená hra - {PoleHry[vyberINT]}");
-                    Thread.Sleep(800);
-                    Console.Clear();
-                    break;
-                }
+                break;
             }
             break;
         }
-        else if (vyberSTR == "R")
+        else if (vyberSTR == "Vybrat náhodnou hru")
         {
             vyberINT = rng.Next(0, PoleHry.Length);
             Console.WriteLine($"Zvolená hra - {PoleHry[vyberINT]}");
@@ -47,7 +52,7 @@ while (true)
             Console.Clear();
             break;
         }
-        else if(vyberSTR == "E")
+        else if(vyberSTR == "Ukončit aplikaci")
         {
             goto END;
         }
@@ -299,12 +304,13 @@ while (true)
                     }
                     i++;
                 }
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Well done, uhádl jsi slovo!");
                 Thread.Sleep(800);
                 Console.Clear();
                 goto Win;
             }
-        Win:
+            Win:
             break;
         #endregion
 
@@ -316,35 +322,34 @@ while (true)
             {
                 int vyberKNPHrac = 0;
                 int vyberKNPBot = 0;
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ResetColor();
 
                 while (true)
                 {
-                    Console.WriteLine("Vyber si: Kámen [K], Nůžky [N] nebo Papír [P]");
-                    vyberSTR = Console.ReadLine().ToUpper();
-                    if (vyberSTR == "K")
+                    vyberSTR = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                        .Title("Vyber si")
+                        .AddChoices(new[] {
+                            "Kámen", "Nůžky", "Papír"
+                        }));
+
+                    if (vyberSTR == "Kámen")
                     {
                         vyberKNPHrac = 0;
                         Console.WriteLine("Vybral sis kámen");
                         break;
                     }
-                    else if (vyberSTR == "N")
+                    else if (vyberSTR == "Nůžky")
                     {
                         vyberKNPHrac = 1;
                         Console.WriteLine("Vybral sis nůžky");
                         break;
                     }
-                    else if (vyberSTR == "P")
+                    else if (vyberSTR == "Papír")
                     {
                         vyberKNPHrac = 2;
                         Console.WriteLine("Vybral sis papír");
                         break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Neplatný výběr");
-                        Thread.Sleep(600);
-                        Console.Clear();
                     }
                 }
 
@@ -397,7 +402,6 @@ while (true)
                 }
             }
             KNPEnd:
-            Console.ForegroundColor = ConsoleColor.White;
             Thread.Sleep(1250);
             Console.Clear();
             break;
@@ -486,6 +490,11 @@ while (true)
                     Console.WriteLine("Karta byla již uhodnota");
                     goto VyberKarta2;
                 }
+                else if (odpoved2 == odpoved1)
+                {
+                    Console.WriteLine("NT, ale spíš ne");
+                    goto VyberKarta2;
+                }
 
                 Console.WriteLine($"První karta - {pexesoRandom[odpoved1 - 1]} \nDruhá karta - {pexesoRandom[odpoved2 - 1]}");
                 if (pexesoRandom[odpoved1 - 1] == pexesoRandom[odpoved2 - 1])
@@ -511,6 +520,7 @@ while (true)
                 }
                 break;
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Vyhrál jsi!");
             Thread.Sleep(600);
             Console.Clear();

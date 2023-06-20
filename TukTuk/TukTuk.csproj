@@ -13,4 +13,8 @@
     <None Remove="txt\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Spectre.Console.Cli" Version="0.47.0" />
+  </ItemGroup>
+
 </Project>
