@@ -31,7 +31,7 @@ while (true)
                 .AddChoices(new[] {
                 "Šibenice", "Kámen, nůžky, papír", "Pexeso"
                 }));
-                //Jsem psát všechny hry
+                //Zde psát všechny hry
 
                 for (vyberINT = 0; vyberINT < PoleHry.Length; vyberINT++)
                 {
